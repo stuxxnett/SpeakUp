@@ -7,13 +7,24 @@ export default defineConfig({
   plugins: [
     react(),
     nodePolyfills({
-      // Whether to polyfill specific globals.
+      // Explicitly polyfill these three major Node globals
       globals: {
         Buffer: true, 
+        global: true,
         process: true,
       },
-      // Whether to polyfill Node.js modules.
       protocolImports: true,
     }),
   ],
+  // This 'define' block is a backup. It tells Vite: 
+  // "Every time you see 'global', just use 'globalThis' (which browsers understand)."
+  define: {
+    global: 'globalThis',
+  },
+  resolve: {
+    alias: {
+      // Direct mapping for simple-peer dependencies
+      'readable-stream': 'vite-plugin-node-polyfills/shims/readable-stream',
+    },
+  },
 })
