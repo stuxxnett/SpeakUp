@@ -7,16 +7,13 @@ export default defineConfig({
   plugins: [
     react(),
     nodePolyfills({
-      // Whether to polyfill `global` variable
-      global: true, 
-      // Whether to polyfill `process` variable
-      process: true,
-      // Whether to polyfill `Buffer` variable
-      buffer: true,
+      // Whether to polyfill specific globals.
+      globals: {
+        Buffer: true, 
+        process: true,
+      },
+      // Whether to polyfill Node.js modules.
+      protocolImports: true,
     }),
   ],
-  define: {
-    // Some libraries use the global object, even in the browser
-    global: 'globalThis',
-  },
 })
