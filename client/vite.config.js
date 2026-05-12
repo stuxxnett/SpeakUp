@@ -1,22 +1,18 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import NodePolyfills from 'vite-plugin-node-polyfills';
 
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    nodePolyfills({
+    NodePolyfills({
       globals: {
-        Buffer: true,
-        global: true,
-        process: true,
+        global: false, // disables the global polyfill to prevent shim import errors
       },
     }),
   ],
-  resolve: {
-    alias: {
-      // This tells Vite to use the browser's globalThis whenever 'global' is mentioned
-      global: 'globalThis',
-    },
+  define: {
+    global: 'globalThis', // allows code expecting 'global' to work in the browser
   },
-})
+});
