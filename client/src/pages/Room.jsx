@@ -8,7 +8,7 @@ import io from 'socket.io-client';
 // 1. GLOBAL VARIABLES (Nuclear Option)
 // These exist outside React, so they NEVER get deleted by re-renders
 // ---------------------------------------------------------
-const socket = io('http://localhost:5000', { autoConnect: false });
+const socket = io('https://speakup-server-zk9m.onrender.com', { autoConnect: false });
 let peer = null; // We will store the peer connection here
 
 const Room = () => {
