@@ -1,18 +1,20 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import NodePolyfills from 'vite-plugin-node-polyfills';
+import { nodePolyfills } from 'vite-plugin-node-polyfills'; // ✅ Fixed: Added curly braces
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    NodePolyfills({
+    nodePolyfills({
       globals: {
-        global: false, // disables the global polyfill to prevent shim import errors
+        Buffer: true,
+        global: false, // Disables the internal shim to prevent the error you saw earlier
+        process: true,
       },
     }),
   ],
   define: {
-    global: 'globalThis', // allows code expecting 'global' to work in the browser
+    global: 'globalThis', // Maps 'global' to 'globalThis' for axios and simple-peer
   },
 });
